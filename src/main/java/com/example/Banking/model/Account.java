@@ -1,25 +1,24 @@
 package com.example.Banking.model;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-import java.util.Objects;
+
+import java.math.BigDecimal;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 public class Account {
 
 
-    private UUID id;
+    private final UUID id;
     private String iban;
     private String ownerName;
-    private Double balance;
+    private BigDecimal balance;
 
     public Account(String iban,
                    String ownerName,
-                   Double balance) {
+                   BigDecimal balance) {
         this.id = UUID.randomUUID();
         this.iban = iban;
         this.ownerName = ownerName;
@@ -27,15 +26,4 @@ public class Account {
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Account account = (Account) o;
-        return Objects.equals(id, account.id) && Objects.equals(iban, account.iban) && Objects.equals(ownerName, account.ownerName) && Objects.equals(balance, account.balance);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, iban, ownerName, balance);
-    }
 }
