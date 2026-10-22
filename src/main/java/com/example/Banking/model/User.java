@@ -2,19 +2,19 @@ package com.example.Banking.model;
 
 
 import com.example.Banking.enums.Role;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.ToString;
 
-import java.util.Objects;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 public class User {
 
 
-    private UUID id;
+    private final UUID id;
     private String username;
+
+    @ToString.Exclude
     private String passwordHash;
     private Role role;
 
@@ -26,15 +26,4 @@ public class User {
         this.role = Role.USER;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(passwordHash, user.passwordHash) && role == user.role;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, passwordHash, role);
-    }
 }
