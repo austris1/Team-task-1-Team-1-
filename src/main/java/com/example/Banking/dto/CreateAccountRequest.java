@@ -1,6 +1,9 @@
 package com.example.Banking.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
+
+import java.math.BigDecimal;
 
 public record CreateAccountRequest(
 
@@ -8,7 +11,10 @@ public record CreateAccountRequest(
         String ownerName,
 
         @NotBlank
-        String iban
+        String iban,
+
+        @PositiveOrZero(message = "initialBalance must not be negative")
+        BigDecimal initialBalance
 
 ) {
 }
