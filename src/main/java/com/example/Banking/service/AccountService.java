@@ -1,5 +1,6 @@
 package com.example.Banking.service;
 
+import com.example.Banking.exception.AccountNotFoundException;
 import com.example.Banking.model.Account;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class AccountService {
     public Account getAccount(UUID id) {
         Account account = accounts.get(id);
         if (account == null) {
-            throw new IllegalArgumentException("Account not found: " + id);
+            throw new AccountNotFoundException();
         }
         return account;
     }

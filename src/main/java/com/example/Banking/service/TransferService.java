@@ -3,6 +3,9 @@ package com.example.Banking.service;
 import com.example.Banking.dto.CreateTransactionRequest;
 import com.example.Banking.dto.CreateTransactionResponse;
 import com.example.Banking.enums.Type;
+import com.example.Banking.exception.InsufficientFundsException;
+import com.example.Banking.exception.InvalidTransferAmountException;
+import com.example.Banking.exception.SameAccountTransferException;
 import com.example.Banking.model.Account;
 import com.example.Banking.model.Transaction;
 import org.springframework.stereotype.Service;
@@ -29,14 +32,14 @@ public class TransferService {
         Account to = accountService.getAccount(request.toAccountId());
 
         if (from.getId().equals(to.getId())) {
-            throw new IllegalArgumentException("Cannot transfer to the same account");
+            throw new SameAccountTransferException();
         }
-        if (request.amount() == null || request.amount() <= 0) {
-            throw new IllegalArgumentException("Amount must be positive");
+        if (request.amount() == null || request.amount().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InvalidTransferAmountException();
         }
-        BigDecimal amount = BigDecimal.valueOf(request.amount());
+        BigDecimal amount = request.amount();
         if (from.getBalance().compareTo(amount) < 0) {
-            throw new IllegalArgumentException("Insufficient funds");
+            throw new InsufficientFundsException();
         }
 
         from.setBalance(from.getBalance().subtract(amount));

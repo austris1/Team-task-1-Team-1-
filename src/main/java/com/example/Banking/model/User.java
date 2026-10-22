@@ -14,7 +14,7 @@ public class User {
     private final UUID id;
     private String username;
 
-    @ToString.Exclude
+    @ToString.Exclude // to avoid logging the passwordHash
     private String passwordHash;
     private Role role;
 

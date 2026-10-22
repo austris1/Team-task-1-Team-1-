@@ -2,23 +2,28 @@ package com.example.Banking.controller;
 
 import com.example.Banking.dto.CreateTransactionRequest;
 import com.example.Banking.dto.CreateTransactionResponse;
-import com.example.Banking.service.BankingService;
+import com.example.Banking.service.TransferService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController()
+@RequestMapping("/transfer")
 public class TransferController {
 
-    private final BankingService bankingService;
+    private final TransferService transferService;
 
-    public TransferController(BankingService bankingService) {
-        this.bankingService = bankingService;
+    @Autowired // I know that for 1 constructor we don't need to use @Autowired, but it's for readability
+    public TransferController(TransferService transferService) {
+        this.transferService = transferService;
     }
 
-    @PostMapping("/transfer")
+    @PostMapping
     public CreateTransactionResponse transfer(@Valid @RequestBody CreateTransactionRequest request) {
-        return bankingService.transfer(request);
+        return transferService.transfer(request);
     }
+
 }
