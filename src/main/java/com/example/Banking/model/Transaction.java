@@ -4,6 +4,7 @@ import com.example.Banking.enums.Type;
 import lombok.Data;
 
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -13,14 +14,14 @@ public class Transaction {
     private final UUID id;
     private Account account;
     private Type type;
-    private Double amount;
+    private BigDecimal amount;
     private LocalDateTime createdAt;
     private String note;
 
 
     public Transaction(Account account,
                        Type type,
-                       Double amount,
+                       BigDecimal amount,
                        LocalDateTime createdAt,
                        String note) {
         this.id = UUID.randomUUID();
